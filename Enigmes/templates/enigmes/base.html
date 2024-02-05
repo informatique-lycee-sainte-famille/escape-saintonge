@@ -1,0 +1,31 @@
+{% load static %}
+
+<html>
+
+<head>
+    <title>Vous êtes la réponse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'enigmes/styles.css' %}" />
+</head>
+
+<body>
+    <header id="header_container">
+        <a href="/"><h1 id="t1">Escape</h1><h1 id="t2"> Saintonge...</h1></a>
+        {% if user.is_authenticated %}
+        <a id="head_right" class="right_cont" href="{% url "compte" %}">
+            <h2> Bonjour, {{user}}</h2>
+        {% else %}
+        <a id="head_right" class="right_cont" href="{% url "connexion"%}">
+            <h2>Se connecter</h2>
+        {% endif %}
+            <img src="{% static 'enigmes/images/'%}utilisateur.png" alt="user icon">
+        </a>
+    </header>
+    {% block content %}{% endblock %}
+    <footer>
+        <h2>Created by some Teachers</h2>
+    </footer>
+</body>
+</html>

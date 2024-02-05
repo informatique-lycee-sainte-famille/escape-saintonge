@@ -1,0 +1,14 @@
+{% extends 'enigmes/base.html' %}
+{% block content %}
+{% load static %}
+<main class="vertical_cent">
+    <h1>Se connecter</h1>
+    <form class="vertical_cent" action="connexion" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <br>
+        <input type="submit" value="Entrer"/>
+    </form>
+    <a href="{% url "creation"%}">Pas de compte ? Créez-le !</a>
+</main>
+{% endblock %}

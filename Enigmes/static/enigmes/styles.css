@@ -1,0 +1,367 @@
+:root {
+    --color-valid : #518048;
+    --color-text : #BD484A;
+    --color-back : #ebf2fa;
+    --color-icon : #2a9d8f;
+
+    --white: #FFFFFF;
+    --greyLight-1: #E4EBF5;
+    --greyLight-2: #c8d0e7;
+    --color-blue: rgba(72,145, 189, 0.74); /*#427aa1;*/
+
+    --font: 'Pixelify Sans', cursive;
+}
+
+/* ---- BASE ---- */
+
+html {
+    margin:0;
+    background-color: #FFF;
+}
+
+a {
+    text-decoration: none;
+}
+
+body{
+    margin: 0;
+    display: grid;
+    grid-template-rows: 2fr 17fr 1fr;
+    height: 100%;
+}
+
+header {
+    padding: 0;
+    background-color: var(--color-back);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--color-text);
+}
+
+header * {
+    padding: 12px;
+    margin: 0;
+    text-decoration: none;
+    color: var(--color-text);
+    font-family: 'Pixelify Sans', cursive;
+    text-align: left;
+    line-height: 85%;
+}
+
+#header_container {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#head_right {
+    max-width: 50%;
+}
+
+header h1 {
+    font-size: 4em;
+    text-shadow: 1px 1px 1px black, -1px -1px 1px black;
+    letter-spacing: 2px;
+    &::first-letter{
+        color: #fff;
+    }
+}
+
+#t2::first-letter {
+    color: var(--color-blue);
+}
+
+header h2 {
+    font-size: 1.5em;
+}
+
+header img {
+    width: 5%;
+    filter: invert(30%) sepia(66%) saturate(1403%) hue-rotate(325deg) brightness(94%) contrast(75%);
+
+    &:hover {
+        filter: invert(30%) sepia(36%) saturate(1003%) hue-rotate(325deg) brightness(94%) contrast(85%);
+    }
+}
+
+footer {
+    border-top: 2px solid var(--color-text);
+    background-color: var(--color-back);
+}
+
+footer h2 {
+    color: var(--color-text);
+    font-family: var(--font);
+    padding: 12px;
+    text-align: right;
+    font-size: 1em;
+}
+
+/* ---- MAIN ----*/
+.center_cont {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right_cont {
+    padding: 12px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.vertical_cent {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.beige {
+    background-color: var(--color-back);
+}
+
+.cadre {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5%;
+}
+
+main {
+    font-family: 'Pixelify Sans', cursive;
+    color: var(--color-text);
+}
+
+main h1 {
+    font-size: 4em;
+    margin: 20px;
+}
+
+main h2 {
+    color: var(--color-text);
+    font-size: 1em;
+}
+
+p {
+    color: var(--color-text);
+}
+
+/* --- Enigmes --- */
+
+#enigmes{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: auto;
+}
+
+@media screen and (max-width: 900px) {
+    #enigmes{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: auto;
+    }
+}
+
+.enigme {
+    width: auto;
+    min-width: 120px;
+    margin: 12px;
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
+#num_quest{
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    text-decoration: none;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 15%;
+    text-align: center;
+}
+
+
+.valid a{
+    color: var(--color-valid);
+    border-color: var(--color-valid);
+    background-color: var(--color-back);
+    &:hover {
+        color: var(--color-back);
+        border-color: var(--color-back);
+        background-color: var(--color-valid);
+    }
+}
+
+.unvalid a{
+    color: var(--color-text);
+    border-color: var(--color-text);
+    background-color: var(--color-back);
+    &:hover {
+        color: var(--color-back);
+        border-color: var(--color-back);
+        background-color: var(--color-text);
+    }
+}
+
+/* --- Detail Enigme ---*/
+#detail {
+    display: grid;
+    grid-template-areas:
+    "im im qu qu"
+    "im im qu qu";
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    width: 1024px;
+    aspect-ratio: 2/1;
+    align-items: center;
+    margin: 12px;
+    padding: 0;
+    background-color: var(--color-back);
+    box-shadow: .3rem .3rem .6rem var(--greyLight-2);
+}
+
+@media screen and (max-width: 1024px) {
+    #detail{
+        display: grid;
+        grid-template-areas:
+        "im im"
+        "im im"
+        "qu qu"
+        "qu qu";
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: 1fr 1fr;
+        width: 512px;
+        aspect-ratio: 1/2;
+        justify-items: center;
+    }
+}
+
+.media {
+    width: 100%;
+    aspect-ratio: 1/1;
+    padding: 0;
+    grid-area: im;
+    position: relative;
+    background-color: #FFF;
+}
+
+#backg-media {
+    max-width: 100%;
+    max-height: 100%;
+    font-size: 9em;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: justify;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+
+    &::first-letter{
+        color: #000;
+    }
+}
+
+.blurbox {
+    width: 100%;
+    aspect-ratio: 1/1;
+    padding:0;
+    backdrop-filter: blur(10px);
+}
+
+.blurbox img {
+    width: 70%;
+    aspect-ratio: 1/1;
+    border: 6px solid var(--color-text);
+}
+
+#detail .question {
+    height: calc(100% - 32px);
+    font-size: 2em;
+    grid-area: qu;
+    margin: 0;
+    padding: 16px;
+    text-align: justify;
+    position: relative;
+}
+
+.question h2 {
+    text-decoration: underline;
+}
+
+.question p {
+    max-height: 200px;
+    overflow: auto;
+}
+
+#form_rep {
+    margin: 0;
+    width: calc(100%);
+    min-height: 100px;
+    justify-content: space-between;
+}
+
+#id_reponse{
+    width: calc(100% - 12px);
+    text-align: left;
+    color: #000;
+    border-radius: 4px;
+}
+
+#val_button {
+    font-family: var(--font);
+    width: 100px;
+    aspect-ratio: 56/21;
+    border-radius: 4px;
+    border: 2px solid var(--color-text);
+    background-color: var(--color-text);
+    color: var(--color-back);
+
+    &:hover {
+        box-shadow: 0 0 0 2px var(--color-back), 0 0 0 3px var(--color-text);
+    }
+}
+
+#result_img {
+    width: 40px;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: 0;
+    left: calc(100% - 52px);
+    padding-top: 12px;
+}
+
+/* --- Compte ---*/
+#t_compte tr {
+    font-size: 1.2em;
+    color: var(--color-text);
+}
+
+#id_ident{
+    pointer-events: none;
+    cursor: default;
+    background-color: dimgrey;
+    color: linen;
+    opacity: 1;
+}
+
+#deco {
+    padding: 5px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 8%;
+    color: var(--color-text);
+    border-color: var(--color-text);
+    &:hover {
+        color: var(--color-back);
+        border-color: var(--color-back);
+        background-color: var(--color-text);
+    }
+}

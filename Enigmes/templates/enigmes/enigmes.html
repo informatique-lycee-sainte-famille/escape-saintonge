@@ -1,0 +1,25 @@
+<!--Enigmes-->
+
+{% extends 'enigmes/base.html' %}
+{% block content %}
+<main class="center_cont">
+    <section id='enigmes'>
+        {% csrf_token %}
+        {%for enigme in enigmes%}
+            {%if enigme.validee%}
+            <div class="enigme valid">
+            {%else%}
+            <div class="enigme unvalid">
+            {%endif%}
+                {% if enigme.nom == 'Final' %}
+                <a id="num_quest" class="gold" title="{{enigme.nom}}">
+                {% else %}
+                <a id="num_quest" href="{% url 'enigme' enigme.id %}" title="{{enigme.nom}}">
+                {% endif %}
+                    <h1>{{enigme.id}}</h1>
+                </a>
+            </div>
+        {%endfor%}
+    </section>
+</main>
+{% endblock %}
