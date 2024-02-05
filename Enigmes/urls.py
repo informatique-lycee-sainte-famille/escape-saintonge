@@ -15,13 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from Enigmes import views
+from Enigmes import views as v
 
 urlpatterns = [
-    path('enigme/<int:ident>', views.detail_enigme, name='enigme'),
-    path('connexion', views.connexion, name='connexion'),
-    path('creation', views.creation, name='creation'),
-    path('deconnexion', views.deconnexion, name='deconnexion'),
-    path('mon_compte', views.compte, name='compte'),
-    path('', views.index),
+    path('enigme/<int:ident>', v.detail_enigme, name='enigme'),
+    path('connexion', v.connexion, name='connexion'),
+    path('creation', v.creation, name='creation'),
+    path('deconnexion', v.deconnexion, name='deconnexion'),
+    path('mon_compte', v.compte, name='compte'),
+    path('', v.index),
 ]
