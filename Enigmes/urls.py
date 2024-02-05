@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.urls import path
 from Enigmes import views
-from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('enigme/<int:ident>', views.detail_enigme, name='enigme'),
