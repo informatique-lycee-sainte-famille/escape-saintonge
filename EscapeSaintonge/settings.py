@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'EscapeSaintongeDB',
         'USER': 'Triptonitt',
-        'PASSWORD': 'Nirva.23.Meu',
+        'PASSWORD': 'dev.23.Meu',
         'HOST' : 'localhost',
         'PORT' : '3306',
     }
