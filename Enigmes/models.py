@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Enigme(models.Model):
-    id = models.BigAutoField(primary_key=True)
     numero = models.IntegerField()
     nom = models.CharField(max_length=50)
     question = models.CharField(max_length=180)
@@ -20,7 +19,7 @@ class Enigme(models.Model):
 
 class Reponse(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    enigme = models.OneToOneField("Enigmes.Enigme", on_delete=models.CASCADE)
+    enigme = models.ForeignKey("Enigmes.Enigme", on_delete=models.CASCADE)
     reponse = models.CharField(max_length=50)
     validee = models.BooleanField(default=False)
 

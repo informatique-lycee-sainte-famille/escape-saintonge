@@ -4,29 +4,38 @@
 <main class="center_cont">
     <section id='detail'>
         <div class="media">
-            <h6 id="backg-media">E S C A P E S A I N T O N G E</h6>
+            
+            <h6 id="backg-media" 
+                    {% if reponse.validee %} class="bg_valid"
+                    {% else %} class="bg_unvalid"
+                    {% endif %}
+            >
+                E S C A P E S A I N T O N G E
+            </h6>
             <div class="blurbox center_cont">
                 <img src="{% static 'enigmes/images/'%}{{enigme.image}}" alt="une image test">
             </div>
         </div>
         <section class="vertical_cent question">
-            {% if reponse.validee %}
-            <img id="result_img" src="{% static 'enigmes/images/'%}valide.png" alt="valide icon">
-            {% elif reponse.reponse %}
-            <img id="result_img" src="{% static 'enigmes/images/'%}invalide.png" alt="invalide icon">
-            {% else %}
-            <img id="result_img" src="{% static 'enigmes/images/'%}question.png" alt="question icon">
-            {% endif %}
-            <h2>Question {{enigme.id}}</h2>
-            <p>{{enigme.question | safe}}</p>
-            <form id="form_rep" class="vertical_cent" action="{{enigme.id}}" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    {{ field.errors }}
-                    {{ field }}
-                {% endfor %}
-                <input id="val_button" type="submit" value="Valider"/>
-            </form>
+            <img id="result_img" src=
+                {% if reponse.validee %} "{% static 'enigmes/images/'%}valide.png" alt="valide icon"
+                {% elif reponse.reponse %} "{% static 'enigmes/images/'%}invalide.png" alt="invalide icon"
+                {% else %} "{% static 'enigmes/images/'%}question.png" alt="question icon"
+                {% endif %}
+            >
+            <h2>Question {{enigme.numero}}</h2>
+            <dl id="question_dl">
+                <dt>{{enigme.question | safe}}</dt>
+                <form id="form_rep" class="vertical_cent" action="{{enigme.numero}}" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {{ field.errors }}
+                        {{ field }}
+                    {% endfor %}
+                    <input id="val_button" type="submit" value="Valider"/>
+                </form>
+            </dl>
+            
         </section>
     </section>
 </main>

@@ -13,9 +13,12 @@
         {% for message in messages %}
         <p>{{ message }}</p>
         {% endfor %}
-        <table id="t_compte">
-            {{form.as_table}}
-        </table>
+        <section id="t_compte">
+            {% for field in form %}
+            <p>{{ field.label_tag }}</p>
+            {{ field }}
+            {% endfor %}
+        </section>
         <br>
     {% if creation %}
         <input type="submit" value="S'inscrire"/>
@@ -23,7 +26,10 @@
     {% else %}
         <input type="submit" value="Mettre à jour"/>
     </form>
-    <a href="{% url "deconnexion"%}">Se déconnecter</a>
+    <div class="footer_cont">
+        <a href="{% url "statistiques" %}">Statistiques</a>
+        <a href="{% url "deconnexion"%}">Se déconnecter</a>
+    </div>
     {% endif %}
 </main>
 {% endblock %}

@@ -23,5 +23,6 @@ urlpatterns = [
     path('creation', v.creation, name='creation'),
     path('deconnexion', v.deconnexion, name='deconnexion'),
     path('mon_compte', v.compte, name='compte'),
+    path('statistiques',v.get_stats, name='statistiques'),
     path('', v.index),
 ]

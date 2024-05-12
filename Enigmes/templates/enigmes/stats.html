@@ -1,0 +1,10 @@
+{% extends 'enigmes/base.html' %}
+{% block content %}
+<main class="center_cont">
+    {% csrf_token %}
+    <section id='stats'>
+        {% include "enigmes/data_window.html" with title="Données globales" stats=stats_glob%}
+        {% include "enigmes/data_window.html" with title="Données du compte" stats=stats_comp%}
+    </section>
+</main>
+{% endblock %}

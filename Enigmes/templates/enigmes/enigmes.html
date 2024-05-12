@@ -6,17 +6,18 @@
     <section id='enigmes'>
         {% csrf_token %}
         {%for enigme in enigmes%}
-            {%if enigme.validee%}
-            <div class="enigme valid">
-            {%else%}
-            <div class="enigme unvalid">
-            {%endif%}
-                {% if enigme.nom == 'Final' %}
-                <a id="num_quest" class="gold" title="{{enigme.nom}}">
-                {% else %}
-                <a id="num_quest" href="{% url 'enigme' enigme.id %}" title="{{enigme.nom}}">
-                {% endif %}
-                    <h1>{{enigme.id}}</h1>
+            
+            <div class="enigme
+                {%if enigme.validee%}valid
+                {%else%}unvalid
+                {%endif%}
+                ">
+                <a id="num_quest" 
+                        {% if enigme.nom == 'Final' %} class="gold" 
+                        {% else %} href="{% url 'enigme' enigme.numero %}"
+                        {% endif %}
+                title="{{enigme.nom}}">
+                    <h1>{{enigme.numero}}</h1>
                 </a>
             </div>
         {%endfor%}

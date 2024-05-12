@@ -10,6 +10,7 @@
     --color-blue: rgba(72,145, 189, 0.74); /*#427aa1;*/
 
     --font: 'Pixelify Sans', cursive;
+    --font-size-p: 1.2rem;
 }
 
 /* ---- BASE ---- */
@@ -17,6 +18,7 @@
 html {
     margin:0;
     background-color: #FFF;
+    height: 100%;
 }
 
 a {
@@ -28,6 +30,13 @@ body{
     display: grid;
     grid-template-rows: 2fr 17fr 1fr;
     height: 100%;
+}
+
+p{
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /*from 200 to 800*/
+    font-style: normal;
 }
 
 header {
@@ -114,6 +123,14 @@ footer h2 {
     align-items: center;
 }
 
+.footer_cont {
+    padding: 12px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
 .vertical_cent {
     padding: 12px;
     display: flex;
@@ -156,6 +173,7 @@ p {
 #enigmes{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    grid-row-gap: 10px;
     width: auto;
 }
 
@@ -269,6 +287,13 @@ p {
     }
 }
 
+.bg_unvalid {
+    color: var(--color-text);
+}
+.bg_valid {
+    color: var(--color-valid);
+}
+
 .blurbox {
     width: 100%;
     aspect-ratio: 1/1;
@@ -284,6 +309,7 @@ p {
 
 #detail .question {
     height: calc(100% - 32px);
+    width: calc(100% - 32px);
     font-size: 2em;
     grid-area: qu;
     margin: 0;
@@ -296,20 +322,26 @@ p {
     text-decoration: underline;
 }
 
-.question p {
+#question_dl {
+    width: 100%;
+    font-size: var(--font-size-p);
+}
+
+#question_dl dt {
     max-height: 200px;
     overflow: auto;
 }
 
 #form_rep {
     margin: 0;
+    padding-left: 0;
     width: calc(100%);
     min-height: 100px;
     justify-content: space-between;
 }
 
 #id_reponse{
-    width: calc(100% - 12px);
+    width: calc(100%);
     text-align: left;
     color: #000;
     border-radius: 4px;
@@ -339,9 +371,14 @@ p {
 }
 
 /* --- Compte ---*/
-#t_compte tr {
-    font-size: 1.2em;
+#t_compte {
+    font-size: var(--font-size-p);
     color: var(--color-text);
+    width: 100%;
+}
+
+#t_compte p {
+    margin-bottom: 2px;
 }
 
 #id_ident{
@@ -364,4 +401,28 @@ p {
         border-color: var(--color-back);
         background-color: var(--color-text);
     }
+}
+
+/* --- Stats --- */
+#stats {
+    display: grid;
+    grid-template-areas:
+    "d1 d2";
+    grid-gap: 50px;
+    padding: 10px;
+    width: 1024px;
+    aspect-ratio: 2/1;
+    align-items: center;
+    margin: 12px;
+}
+
+.data {
+    box-shadow: .3rem .3rem .6rem var(--greyLight-2);
+    border-radius: 20px;
+    height: calc(100% - 20px);
+}
+
+.data_titre {
+    color: var(--color-blue);
+    font-size: 2em;
 }
