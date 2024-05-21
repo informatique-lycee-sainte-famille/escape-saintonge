@@ -4,7 +4,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils import timezone
-import datetime
 
 from Enigmes.models import Enigme, Reponse, Final
 from .forms import ReponseForm, CompteForm, CreaCompteForm
@@ -139,9 +138,9 @@ def get_stats(request):
         classement[user.username] = len(reponses.filter(user=user, validee=True))
     tri = sorted(classement.items(), key=lambda x: x[1])
     tri.reverse()
-    max = len(tri) if len(tri) < 10 else 10
-    for i in range(max):
-        data["desc"] = f"{i+1}"
+    maximum = len(tri) if len(tri) < 10 else 10
+    for i in range(maximum):
+        data["desc"] = i+1
         data["data"] = f"{tri[i][0]}"
         stats_gen.append(dict(data))
     # Les plus rapides
