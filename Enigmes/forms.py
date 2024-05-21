@@ -10,11 +10,9 @@ class CompteForm(forms.Form):
     ident = forms.CharField(label="Nom d’utilisateur", max_length=150, required=True)
     prenom = forms.CharField(label="Prénom", max_length=150, required=True)
     nom = forms.CharField(label="Nom", max_length=150, required=True)
-    email = forms.EmailField(label="Mail", required=False)
 
 class CreaCompteForm(forms.Form):
     identite = forms.CharField(label="Nom d’utilisateur", max_length=150, required=True)
-    prenom = forms.CharField(label="Prénom", max_length=150, required=True)
-    nom = forms.CharField(label="Nom", max_length=150, required=True)
-    email = forms.EmailField(label="Adresse Mail", required=False)
+    prenom = forms.CharField(label="Prénom", max_length=150, required=False)
+    nom = forms.CharField(label="Nom", max_length=150, required=False)
     mdp = forms.CharField(label='Mot de passe', max_length=32, widget=forms.PasswordInput)

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -74,9 +74,11 @@ def detail_enigme(request, ident):
 
 def connexion(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            login(request, form.get_user())
+        user = authenticate(request,
+                            username=request.POST["username"],
+                            password=request.POST["password"])
+        if user:
+            login(request, user)
             return redirect("/")
     elif request.user.is_authenticated:
         return redirect("compte")
@@ -90,12 +92,10 @@ def compte(request):
     if request.method == "POST":
         user.first_name = request.POST["prenom"]
         user.last_name = request.POST["nom"]
-        user.email = request.POST["email"]
         user.save()
     form = CompteForm(initial={"ident": user.username,
                                "prenom": user.first_name,
-                               "nom": user.last_name,
-                               "email": user.email})
+                               "nom": user.last_name})
 
     return render(request, 'enigmes/compte.html', {"form": form})
 
@@ -108,7 +108,7 @@ def creation(request):
                 messages.error(request, 'Utilisateur déjà existant')
             else:
                 user = User.objects.create_user(form.cleaned_data["identite"],
-                                                form.cleaned_data["email"],
+                                                '',
                                                 form.cleaned_data["mdp"])
                 user.first_name = form.cleaned_data["prenom"]
                 user.last_name = form.cleaned_data["nom"]
