@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Enigme(models.Model):
     numero = models.IntegerField()
     nom = models.CharField(max_length=50)
-    question = models.CharField(max_length=180)
+    question = models.TextField()
     image = models.CharField(max_length=40, default="default.jpg")
     solution = models.CharField(max_length=50)
 

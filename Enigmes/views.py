@@ -125,47 +125,42 @@ def deconnexion(request):
     return redirect("/")
 
 def get_stats(request):
-    stats_glob = []
-    stats_comp = []
+    stats_gen = []
+    stats_rap = []
+    chrono = []
     data = {}
-    enigmes = Enigme.objects.all().order_by('numero')
-    reponses = Reponse.objects.all().order_by("enigme")
+    #objets de base
+    enigmes = Enigme.objects.all()
+    reponses = Reponse.objects.all()
     users = User.objects.filter(is_active=True, is_staff=False)
-    data["desc"] = "Pourcentage de bonnes réponses : "
-    data["data"] = f"{len(reponses.filter(validee=True))/len(reponses)*100} %"
-    stats_glob.append(dict(data))
-    max = 0
-    min = 0
+    #Classement général
+    classement = {}
     for user in users:
-        cpt = 0
-        for reponse in reponses.filter(user=user):
-            if reponse.validee:
-                cpt += 1
-        tmp = cpt/len(enigmes)*100
-        if tmp > max:
-            max = tmp
-        if tmp < min:
-            min = tmp
-    data["desc"] = "Taux de bonnes réponses max :"
-    data["data"] = f"{max} %"
-    stats_glob.append(dict(data))
-    data["desc"] = "Taux de bonnes réponses min :"
-    data["data"] = f"{min} %"
-    stats_glob.append(dict(data))
-    # données du compte
-    data["desc"] = "Nombre de questions répondues :"
-    data["data"] = f"{len(reponses.filter(user=request.user))} sur un total de {len(enigmes)}"
-    stats_comp.append(dict(data))
-    rep_val = len(reponses.filter(user=request.user, validee=True))/len(enigmes)*100
-    data["desc"] = "Taux de bonnes réponses :"
-    data["data"] = f"{rep_val} %"
-    stats_comp.append(dict(data))
+        classement[user.username] = len(reponses.filter(user=user, validee=True))
+    tri = sorted(classement.items(), key=lambda x: x[1])
+    tri.reverse()
+    max = len(tri) if len(tri) < 10 else 10
+    for i in range(max):
+        data["desc"] = f"{i+1}"
+        data["data"] = f"{tri[i][0]}"
+        stats_gen.append(dict(data))
+    # Les plus rapides
+    tri = reponses.filter(validee=True).order_by('enigme')
+    classement = {i:'***' for i in range(1,len(enigmes)+1)}
+    for rep in tri:
+        if not rep.user.is_staff and classement[rep.enigme.numero] == '***':
+             classement[rep.enigme.numero] = rep.user.username
+    for key, value in classement.items():
+        data["desc"] = key
+        data["data"] = value
+        stats_rap.append(dict(data))
+    # Chrono du compte
     time = timezone.now() - request.user.date_joined
     secondes = time.seconds % 60
     minute = time.seconds // 60 % 24
     hour = time.seconds // 3600
-    data["desc"] = "Temps depuis le début de votre partie :"
-    data["data"] = f"{time.days} jours, {hour} heures, {minute} minutes, {secondes} secondes"
-    print(time, time.seconds)
-    stats_comp.append(dict(data))
-    return render(request, 'enigmes/stats.html', {"stats_glob": stats_glob, "stats_comp": stats_comp})
+    chrono.append(f"{time.days} jours")
+    chrono.append(f"{hour} heures")
+    chrono.append(f"{minute} minutes")
+    chrono.append(f"{secondes} secondes")
+    return render(request, 'enigmes/stats.html', {"stats_gen": stats_gen, "stats_rap": stats_rap, "chrono":chrono})

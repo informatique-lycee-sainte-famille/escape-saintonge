@@ -3,8 +3,9 @@
 <main class="center_cont">
     {% csrf_token %}
     <section id='stats'>
-        {% include "enigmes/data_window.html" with title="Données globales" stats=stats_glob%}
-        {% include "enigmes/data_window.html" with title="Données du compte" stats=stats_comp%}
+        {% include "enigmes/data_window.html" with title="Classement Général" stats=stats_gen%}
+        {% include "enigmes/data_window.html" with title="Les Plus Rapides" stats=stats_rap%}
+        {% include "enigmes/chrono_window.html" with chrono=chrono%}
     </section>
 </main>
 {% endblock %}

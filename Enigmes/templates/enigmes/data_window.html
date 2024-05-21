@@ -1,9 +1,8 @@
 <article class="vertical_cent data">
     <h2 class="data_titre">{{title}}</h2>
-    {%for data in stats%}
-    <div class="vertical_cent">
-        <p>{{data.desc}}</p>
-        <p>{{data.data}}</p>
+    <div class="data_cont">
+        {%for data in stats%}
+        <h2>{{data.desc}} : {{data.data}}</h2>
+        {% endfor %}
     </div>
-    {% endfor %}
 </article>
