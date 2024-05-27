@@ -2,7 +2,9 @@
     <h2 class="data_titre">{{title}}</h2>
     <div class="data_cont">
         {%for data in stats%}
-        <h2>{{data.desc}} : {{data.data}}</h2>
+            <section class="center_cont">
+                <p>{{data.desc}} : {{data.data}}</p>
+            </section>
         {% endfor %}
     </div>
 </article>

@@ -5,30 +5,22 @@
     {% if creation %}
     <h1>Creer mon compte</h1>
     <form class="vertical_cent" action="creation" method="post">
-    {% else %}
-    <h1>Mon compte</h1>
-    <form class="vertical_cent" action="mon_compte" method="post">
-    {% endif %}
         {% csrf_token %}
         {% for message in messages %}
         <p>{{ message }}</p>
         {% endfor %}
-        <section id="t_compte">
+        <section id="t_compte" class="vertical_cent">
             {% for field in form %}
             <p>{{ field.label_tag }}</p>
             {{ field }}
             {% endfor %}
         </section>
         <br>
-    {% if creation %}
         <input type="submit" value="S'inscrire"/>
     </form>
     {% else %}
-        <input type="submit" value="Mettre à jour"/>
-    </form>
     <div class="footer_cont">
-        <a href="{% url "statistiques" %}">Statistiques</a>
-        <a href="{% url "deconnexion"%}">Se déconnecter</a>
+        <a href="{% url "deconnexion"%}"><h2>Se déconnecter</h2></a>
     </div>
     {% endif %}
 </main>

@@ -7,7 +7,7 @@ class Enigme(models.Model):
     numero = models.IntegerField()
     nom = models.CharField(max_length=50)
     question = models.TextField()
-    image = models.CharField(max_length=40, default="default.jpg")
+    image = models.CharField(max_length=40, default="default.png")
     solution = models.CharField(max_length=50)
 
     def update(self):

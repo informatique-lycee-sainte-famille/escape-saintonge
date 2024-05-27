@@ -80,24 +80,16 @@ def connexion(request):
         if user:
             login(request, user)
             return redirect("/")
+        else:
+            messages.error(request, "Connexion échouée, vérifie nom d'utilisateur et mot de passe")
     elif request.user.is_authenticated:
         return redirect("compte")
-    else:
-        form = AuthenticationForm()
+    form = AuthenticationForm()
     return render(request, 'enigmes/connexion.html', {"form": form})
 
 
 def compte(request):
-    user = request.user
-    if request.method == "POST":
-        user.first_name = request.POST["prenom"]
-        user.last_name = request.POST["nom"]
-        user.save()
-    form = CompteForm(initial={"ident": user.username,
-                               "prenom": user.first_name,
-                               "nom": user.last_name})
-
-    return render(request, 'enigmes/compte.html', {"form": form})
+    return render(request, 'enigmes/compte.html')
 
 
 def creation(request):
@@ -108,11 +100,10 @@ def creation(request):
                 messages.error(request, 'Utilisateur déjà existant')
             else:
                 user = User.objects.create_user(form.cleaned_data["identite"],
-                                                '',
+                                                'e@mail.com',
                                                 form.cleaned_data["mdp"])
-                user.first_name = form.cleaned_data["prenom"]
-                user.last_name = form.cleaned_data["nom"]
                 user.save()
+                messages.success(request, 'créé avec succès, connecte toi !')
                 return redirect("connexion")
     else:
         form = CreaCompteForm()
@@ -154,12 +145,13 @@ def get_stats(request):
         data["data"] = value
         stats_rap.append(dict(data))
     # Chrono du compte
-    time = timezone.now() - request.user.date_joined
-    secondes = time.seconds % 60
-    minute = time.seconds // 60 % 24
-    hour = time.seconds // 3600
-    chrono.append(f"{time.days} jours")
-    chrono.append(f"{hour} heures")
-    chrono.append(f"{minute} minutes")
-    chrono.append(f"{secondes} secondes")
+    if request.user.is_authenticated:
+        time = timezone.now() - request.user.date_joined
+        secondes = time.seconds % 60
+        minute = time.seconds // 60 % 24
+        hour = time.seconds // 3600
+        chrono.append(f"{time.days} jours")
+        chrono.append(f"{hour} heures")
+        chrono.append(f"{minute} minutes")
+        chrono.append(f"{secondes} secondes")
     return render(request, 'enigmes/stats.html', {"stats_gen": stats_gen, "stats_rap": stats_rap, "chrono":chrono})

@@ -5,7 +5,10 @@
     <h1>Se connecter</h1>
     <form class="vertical_cent" action="connexion" method="post">
         {% csrf_token %}
-        <section id="t_compte">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        <section id="t_compte" class="vertical_cent">
             {% for field in form %}
             <p>{{ field.label_tag }}</p>
             {{ field }}

@@ -96,13 +96,25 @@ header img {
 }
 
 footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-top: 2px solid var(--color-text);
     background-color: var(--color-back);
+    padding: 0 12px;
 }
 
 footer p {
     text-align: right;
     padding-right: 12px;
+}
+
+footer a {
+    align-items: center;
+}
+
+#trophy {
+    width: 8%;
 }
 
 /* ---- MAIN ----*/
@@ -117,6 +129,13 @@ footer p {
     padding: 12px;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+}
+
+.left_cont {
+    padding: 12px;
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -299,8 +318,7 @@ p {
 }
 
 .blurbox img {
-    width: 70%;
-    aspect-ratio: 1/1;
+    width: 80%;
     border: 6px solid var(--color-text);
 }
 
