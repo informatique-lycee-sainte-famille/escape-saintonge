@@ -10,7 +10,6 @@
     --color-blue: rgba(72,145, 189, 0.74); /*#427aa1;*/
 
     --font: 'Pixelify Sans', cursive;
-    --font-size-p: 1.2rem;
 }
 
 /* ---- BASE ---- */
@@ -185,19 +184,20 @@ p {
 }
 
 /* --- Enigmes --- */
-
 #enigmes{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-row-gap: 10px;
-    width: auto;
+    grid-template-columns: repeat(2, 1fr);
+    width: 80%;
+    height: 80%;
 }
 
-@media screen and (max-width: 900px) {
+@media only screen and (orientation: landscape) {
     #enigmes{
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 10px;
         width: auto;
+        height: auto;
     }
 }
 
@@ -210,16 +210,25 @@ p {
 }
 
 #num_quest{
-    width: 120px;
-    height: 120px;
+    width: 80%;
+    aspect-ratio: 1/1;
     margin: auto;
     text-decoration: none;
     border-width: 2px;
     border-style: solid;
-    border-radius: 15%;
-    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
 }
-
+@media only screen and (orientation: landscape) {
+    #num_quest{
+        width: 120px;
+        height: 120px;
+        font-size: 1em;
+    }
+}
 
 .valid a{
     color: var(--color-valid);
@@ -244,35 +253,34 @@ p {
 }
 
 /* --- Detail Enigme ---*/
-#detail {
+#detail{
     display: grid;
     grid-template-areas:
-    "im im qu qu"
-    "im im qu qu";
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: repeat(4, 1fr);
-    width: 1024px;
-    aspect-ratio: 2/1;
+    "im im"
+    "im im"
+    "qu qu"
+    "qu qu";
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr 1fr;
+    width: 80%;
+    aspect-ratio: 1/2;
+    justify-items: center;
     align-items: center;
-    margin: 12px;
-    padding: 0;
     background-color: var(--color-back);
     box-shadow: .3rem .3rem .6rem var(--greyLight-2);
+    margin: 12px;
+    padding: 0;
 }
 
-@media screen and (max-width: 1024px) {
-    #detail{
-        display: grid;
+@media only screen and (orientation: landscape) {
+    #detail {
         grid-template-areas:
-        "im im"
-        "im im"
-        "qu qu"
-        "qu qu";
-        grid-template-rows: repeat(4, 1fr);
-        grid-template-columns: 1fr 1fr;
-        width: 512px;
-        aspect-ratio: 1/2;
-        justify-items: center;
+        "im im qu qu"
+        "im im qu qu";
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        width: 1024px;
+        aspect-ratio: 2/1;
     }
 }
 
@@ -288,7 +296,7 @@ p {
 #backg-media {
     max-width: 100%;
     max-height: 100%;
-    font-size: 9em;
+    font-size: 12em;
     font-weight: normal;
     overflow: hidden;
     text-align: justify;
@@ -300,6 +308,12 @@ p {
 
     &::first-letter{
         color: #000;
+    }
+}
+
+@media only screen and (orientation: landscape) {
+    #backg-media {
+        font-size: 9em;
     }
 }
 
@@ -335,11 +349,26 @@ p {
 
 .question h2 {
     text-decoration: underline;
+    font-size: 2.5em;
+}
+
+@media only screen and (orientation: landscape) {
+    .question h2 {
+        font-size: 1em;
+    }
 }
 
 #question_dl {
     width: 100%;
-    font-size: var(--font-size-p);
+    height: calc(100% - 96px);
+    font-size: 1.5em;
+}
+
+@media only screen and (orientation: landscape) {
+    #question_dl {
+        font-size: 0.8em;
+        height: auto;
+    }
 }
 
 #question_dl dt {
@@ -355,8 +384,15 @@ p {
     margin: 0;
     padding-left: 0;
     width: calc(100%);
-    min-height: 100px;
+    height: calc(100% /2);
     justify-content: space-between;
+}
+
+@media only screen and (orientation: landscape) {
+    #form_rep {
+        height: auto;
+        min-height: 100px;
+    }
 }
 
 #id_reponse{
@@ -364,19 +400,29 @@ p {
     text-align: left;
     color: #000;
     border-radius: 4px;
+    font-size:0.8em;
 }
 
 #val_button {
     font-family: var(--font);
-    width: 100px;
+    font-size: 1em;
+    width: 200px;
     aspect-ratio: 56/21;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 2px solid var(--color-text);
     background-color: var(--color-text);
     color: var(--color-back);
+}
 
-    &:hover {
-        box-shadow: 0 0 0 2px var(--color-back), 0 0 0 3px var(--color-text);
+@media only screen and (orientation: landscape) {
+    #val_button {
+        font-size: 0.8em;
+        width: 100px;
+        border-radius: 4px;
+
+        &:hover {
+            box-shadow: 0 0 0 2px var(--color-back), 0 0 0 3px var(--color-text);
+        }
     }
 }
 

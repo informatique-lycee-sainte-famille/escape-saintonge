@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils import timezone
+from datetime import datetime
 
 from Enigmes.models import Enigme, Reponse, Final
 from .forms import ReponseForm, CompteForm, CreaCompteForm
@@ -11,12 +12,14 @@ from .forms import ReponseForm, CompteForm, CreaCompteForm
 
 # Create your views here.
 def redir(request):
-    return redirect('Enigmes/')
+    if request.session.get("theme"):
+        return redirect(f'Enigmes/{request.session['theme']}')
+    return redirect('Enigmes/default')
 
 
-def index(request):
-    enigmes = Enigme.objects.all().order_by('numero')
-    user = None
+def index(request, theme):
+    request.session['theme'] = theme
+    enigmes = Enigme.objects.filter(theme=theme).order_by('numero')
     finaliste = False
     if request.user.is_authenticated:
         finaliste = True
@@ -41,11 +44,12 @@ def index(request):
 
 
 # @login_required(login_url="connexion")
-def detail_enigme(request, ident):
+def detail_enigme(request,theme, ident):
     try:
-        enigme = Enigme.objects.get(numero=ident)
+        enigme = Enigme.objects.filter(theme=theme).get(numero=ident)
     except Enigme.DoesNotExist:
         return redirect('/')
+    request.session['theme'] = theme
     reponse = Reponse()
     if request.user.is_authenticated:
         qResponse = Reponse.objects.filter(enigme=enigme, user=request.user)
@@ -59,6 +63,7 @@ def detail_enigme(request, ident):
                 reponse.reponse = form.cleaned_data["reponse"]
                 if reponse.reponse == enigme.solution:
                     reponse.validee = True
+                reponse.history = timezone.now()
                 reponse.save()
         else:
             form = ReponseForm()
@@ -111,7 +116,9 @@ def creation(request):
 
 
 def deconnexion(request):
+    theme = request.session.get('theme')
     logout(request)
+    request.session['theme'] = theme
     return redirect("/")
 
 def get_stats(request):
@@ -120,27 +127,34 @@ def get_stats(request):
     chrono = []
     data = {}
     #objets de base
-    enigmes = Enigme.objects.all()
+    enigmes = Enigme.objects.filter(theme=request.session['theme'])
     reponses = Reponse.objects.all()
-    users = User.objects.filter(is_active=True, is_staff=False)
     #Classement général
-    classement = {}
-    for user in users:
-        classement[user.username] = len(reponses.filter(user=user, validee=True))
-    tri = sorted(classement.items(), key=lambda x: x[1])
-    tri.reverse()
-    maximum = len(tri) if len(tri) < 10 else 10
-    for i in range(maximum):
-        data["desc"] = i+1
-        data["data"] = f"{tri[i][0]}"
-        stats_gen.append(dict(data))
+    classement_gen = {}
     # Les plus rapides
-    tri = reponses.filter(validee=True).order_by('enigme')
-    classement = {i:'***' for i in range(1,len(enigmes)+1)}
-    for rep in tri:
-        if not rep.user.is_staff and classement[rep.enigme.numero] == '***':
-             classement[rep.enigme.numero] = rep.user.username
-    for key, value in classement.items():
+    classement_rap = {i: '***' for i in range(1, len(enigmes) + 1)}
+    for e in enigmes:
+        rep = reponses.filter(enigme=e, validee=True)
+        print(rep)
+        if rep.exists():
+            first = rep[0]
+            for r in rep:
+                #pour le général
+                if r.user.username in classement_gen.keys():
+                    classement_gen[r.user.username] += 1 #un point pour chaque réponse validée
+                else:
+                    classement_gen[r.user.username] = 1
+                #pour le plus rapide
+                if not r.user.is_staff and r.history < first.history:
+                    first = r
+            classement_rap[first.enigme.numero] = first.user.username
+    #data finale
+    cla_gen_trie = dict(sorted(classement_gen.items(), key=lambda item: item[1], reverse=True))
+    for key, value in cla_gen_trie.items():
+        data["desc"] = key
+        data["data"] = value
+        stats_gen.append(dict(data))
+    for key, value in classement_rap.items():
         data["desc"] = key
         data["data"] = value
         stats_rap.append(dict(data))

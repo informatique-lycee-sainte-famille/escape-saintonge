@@ -14,7 +14,7 @@
                 ">
                 <a id="num_quest" 
                         {% if enigme.nom == 'Final' %} class="gold" 
-                        {% else %} href="{% url 'enigme' enigme.numero %}"
+                        {% else %} href="{% url 'enigme' request.session.theme enigme.numero %}"
                         {% endif %}
                 title="{{enigme.nom}}">
                     <h1>{{enigme.numero}}</h1>

@@ -18,11 +18,11 @@ from django.urls import path
 from Enigmes import views as v
 
 urlpatterns = [
-    path('enigme/<int:ident>', v.detail_enigme, name='enigme'),
+    path('<theme>/<int:ident>', v.detail_enigme, name='enigme'),
     path('connexion', v.connexion, name='connexion'),
     path('creation', v.creation, name='creation'),
     path('deconnexion', v.deconnexion, name='deconnexion'),
     path('mon_compte', v.compte, name='compte'),
-    path('statistiques',v.get_stats, name='statistiques'),
-    path('', v.index),
+    path('classement',v.get_stats, name='classement'),
+    path('<theme>', v.index),
 ]

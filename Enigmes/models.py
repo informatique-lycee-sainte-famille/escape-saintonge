@@ -1,13 +1,22 @@
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
+
+class Theme(models.Model):
+    nom = models.CharField(primary_key=True, max_length=100)
+
+    def __str__(self) -> str:
+        return self.nom
+
 
 # Create your models here.
 class Enigme(models.Model):
     numero = models.IntegerField()
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, default='default')
     nom = models.CharField(max_length=50)
     question = models.TextField()
-    image = models.CharField(max_length=40, default="default.png")
+    image = models.ImageField(upload_to="Enigmes",default='Enigmes/default.png')
     solution = models.CharField(max_length=50)
 
     def update(self):
@@ -22,6 +31,7 @@ class Reponse(models.Model):
     enigme = models.ForeignKey("Enigmes.Enigme", on_delete=models.CASCADE)
     reponse = models.CharField(max_length=50)
     validee = models.BooleanField(default=False)
+    history = models.DateTimeField(default=datetime.now)
 
     class Meta:
         unique_together = (("user", "enigme"),)
