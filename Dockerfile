@@ -35,7 +35,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y --no-install-recommends \
     default-libmysqlclient-dev \
     libjpeg62-turbo \
-    netcat \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy wheels + install
