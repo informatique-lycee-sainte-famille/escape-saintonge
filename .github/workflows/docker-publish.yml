@@ -29,5 +29,5 @@ jobs:
         with:
           context: ./
           push: true
-          tags: ghcr.io/${{ github.repository }}/pret-materiel:latest
+          tags: ghcr.io/${{ github.repository }}/escape-saintonge:latest
           file: ./Dockerfile
