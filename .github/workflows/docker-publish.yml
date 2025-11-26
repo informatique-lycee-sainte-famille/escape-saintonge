@@ -31,3 +31,8 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}/escape-saintonge:latest
           file: ./Dockerfile
+
+      # redeploy on portainer :
+        # https://portainer.apps.pedagogique.local/api/stacks/webhooks/e1bb81e1-3f70-4328-8cc4-765e8159bc7b
+      - name: Call Portainer Webhook
+        run: curl -X POST ${{ secrets.PORTAINER_WEBHOOK_URL }}
