@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,12 +24,12 @@ MEDIA_URL = '/media/'
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8lnl#7g(nv1f3wgzrb(y6#lyl7g29_a(b*$7y!ftblkmb&wo40'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-Saintonge-251715')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "Enigmes.apps.EnigmesConfig",
+    'Enigmes.apps.EnigmesConfig',
+    'mod_wsgi.server',
 ]
 
 MIDDLEWARE = [
@@ -81,11 +83,11 @@ WSGI_APPLICATION = 'EscapeSaintonge.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'EscapeSaintongeDB',
-        'USER': 'Triptonitt',
-        'PASSWORD': 'dev.23.Meu',
-        'HOST' : 'localhost',
-        'PORT' : '3306',
+        'NAME': os.getenv('DB_NAME', 'EscapeSaintongeDB'),
+        'USER': os.getenv('DB_USER', 'MulVray'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Saintonge33!'),
+        'HOST' : os.getenv('DB_HOST', 'localhost'),
+        'PORT' : os.getenv('DB_PORT', '3306'),
     }
 }
 
@@ -127,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
 # Default primary key field type

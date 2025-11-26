@@ -3,7 +3,11 @@
 <html>
 
 <head>
-    <title>Vous êtes la réponse</title>
+    {% if enigme %}
+    	<title>{{enigme.nom}}</title>
+    {% else %}
+    	<title>Vous êtes la réponse</title>
+    {% endif %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap"
@@ -28,7 +32,7 @@
     <footer>
         <a href="{% url "classement" %}" class="left_cont">
             <img id="trophy" src="{% static 'enigmes/images/'%}trophy.png" alt="golden trophy">
-            <p>Classement</p>
+            <p id="classement">Classement</p>
         </a>
         <p>&copy; Lycée Sainte Famille Saintonge</p>
     </footer>

@@ -1,0 +1,8 @@
+Dockerfile
+.gitignore
+.dockerignore
+README.md
+.idea/
+.vscode/
+.venv/
+etc/

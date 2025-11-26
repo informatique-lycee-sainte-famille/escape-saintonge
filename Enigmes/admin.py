@@ -16,7 +16,7 @@ class ReponseAdmin(admin.ModelAdmin):
 
 
 class FinalAdmin(admin.ModelAdmin):
-    list_display = ('code',)
+    list_display = ('theme','code')
 
 
 admin.site.register(Enigme, EnigmeAdmin)

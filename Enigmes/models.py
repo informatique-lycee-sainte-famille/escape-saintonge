@@ -44,6 +44,7 @@ class Reponse(models.Model):
 
 
 class Final(models.Model):
+    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, default='default')
     code = models.CharField("Code", max_length=10)
 
     class Meta:

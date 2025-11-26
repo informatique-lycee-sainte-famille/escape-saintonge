@@ -13,8 +13,8 @@ from .forms import ReponseForm, CompteForm, CreaCompteForm
 # Create your views here.
 def redir(request):
     if request.session.get("theme"):
-        return redirect(f'Enigmes/{request.session['theme']}')
-    return redirect('Enigmes/default')
+        return redirect(f"Enigmes/{request.session['theme']}")
+    return redirect('Enigmes/intro')
 
 
 def index(request, theme):
@@ -33,8 +33,8 @@ def index(request, theme):
                 finaliste = False
     if finaliste:
         enigmes = []
-        final = Final.objects.get(pk=1)
-        for digit in final.code:
+        final = Final.objects.filter(theme=theme)
+        for digit in final[0].code:
             enigme = Enigme()
             enigme.validee = True
             enigme.numero = int(digit)
