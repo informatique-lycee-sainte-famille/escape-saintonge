@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Enigmes.apps.EnigmesConfig',
-    'mod_wsgi.server',
+    # 'mod_wsgi.server',
 ]
 
 MIDDLEWARE = [
