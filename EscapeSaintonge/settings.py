@@ -36,6 +36,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-Saintonge-251715')
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    "https://escapesaintonge.apps.pedagogique.local",
+    "http://localhost:8000",
+]
 
 
 # Application definition
